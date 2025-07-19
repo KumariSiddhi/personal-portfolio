@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
+import { RxGithubLogo, RxExternalLink } from "react-icons/rx";
 
 interface Props {
   src: string;
@@ -13,49 +14,50 @@ interface Props {
 
 const ProjectCard = ({ src, title, description, githubLink, deployLink }: Props) => {
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg border border-[#2A0E61]">
+    <div className="relative overflow-hidden rounded-2xl shadow-lg border border-[#2A0E61] bg-gradient-to-br from-[#0C0C0C] to-[#1A1A1A] min-h-[650px] group">
+      {/* Floating glow effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+      
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"></div>
+      
       <Image
         src={src}
         alt={title}
         width={1000}
         height={1000}
-        className="w-full object-contain"
+        className="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-110"
       />
 
-      <div className="relative p-4">
-        <h1 className="text-2xl font-semibold text-white flex items-center justify-between">
-          <span>{title}</span>
-          <div className="flex items-center">
-            {githubLink && (
-              <a
-                href={githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="GitHub Repository"
-                className="ml-2 flex items-center"
-              >
-                {/* GitHub icon SVG */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="github" fill="#5C6BC0" className="h-8 w-8 text-gray-300">
-                  <path d="M7.999 0C3.582 0 0 3.596 0 8.032a8.031 8.031 0 0 0 5.472 7.621c.4.074.546-.174.546-.387 0-.191-.007-.696-.011-1.366-2.225.485-2.695-1.077-2.695-1.077-.363-.928-.888-1.175-.888-1.175-.727-.498.054-.488.054-.488.803.057 1.225.828 1.225.828.714 1.227 1.873.873 2.329.667.072-.519.279-.873.508-1.074-1.776-.203-3.644-.892-3.644-3.969 0-.877.312-1.594.824-2.156-.083-.203-.357-1.02.078-2.125 0 0 .672-.216 2.2.823a7.633 7.633 0 0 1 2.003-.27 7.65 7.65 0 0 1 2.003.271c1.527-1.039 2.198-.823 2.198-.823.436 1.106.162 1.922.08 2.125.513.562.822 1.279.822 2.156 0 3.085-1.87 3.764-3.652 3.963.287.248.543.738.543 1.487 0 1.074-.01 1.94-.01 2.203 0 .215.144.465.55.386A8.032 8.032 0 0 0 16 8.032C16 3.596 12.418 0 7.999 0z"> </path>
-                </svg>
-              </a>
-            )}
-            {deployLink && (
-              <a
-                href={deployLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Deployed Link"
-                className="ml-2 flex items-center"
-              >
-                <button className="bg-indigo-800 text-slate-300  text-base py-1.5 px-5 rounded-xl focus:outline-none">
-                  LIVE
-                </button>
-              </a>
-            )}
-          </div>
-        </h1>
-        <p className="mt-2 text-gray-300">{description}</p>
+      <div className="relative z-20 p-10">
+        <h1 className="text-4xl font-semibold text-white mb-6">{title}</h1>
+        <p className="text-gray-300 text-xl leading-relaxed mb-10">{description}</p>
+        
+        <div className="flex gap-6">
+          {githubLink && (
+            <a
+              href={githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
+            >
+              <RxGithubLogo className="text-2xl" />
+              <span className="font-medium text-lg">GitHub</span>
+            </a>
+          )}
+          
+          {deployLink && (
+            <a
+              href={deployLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25"
+            >
+              <RxExternalLink className="text-2xl" />
+              <span className="font-medium text-lg">Live Demo</span>
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
