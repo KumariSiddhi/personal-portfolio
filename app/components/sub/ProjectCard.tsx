@@ -1,64 +1,102 @@
-// ProjectCard.tsx
-
-import Image from "next/image";
 import React from "react";
-import { RxGithubLogo, RxExternalLink } from "react-icons/rx";
+import Image from "next/image";
+import { Github, ExternalLink, ArrowRight } from "lucide-react";
 
 interface Props {
   src: string;
   title: string;
   description: string;
-  githubLink?: string;
-  deployLink?: string;
+  githubLink: string;
+  deployLink: string;
 }
 
 const ProjectCard = ({ src, title, description, githubLink, deployLink }: Props) => {
   return (
-    <div className="relative overflow-hidden rounded-2xl shadow-lg border border-[#2A0E61] bg-gradient-to-br from-[#0C0C0C] to-[#1A1A1A] min-h-[650px] group">
-      {/* Floating glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
-      
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"></div>
-      
-      <Image
-        src={src}
-        alt={title}
-        width={1000}
-        height={1000}
-        className="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-
-      <div className="relative z-20 p-10">
-        <h1 className="text-4xl font-semibold text-white mb-6">{title}</h1>
-        <p className="text-gray-300 text-xl leading-relaxed mb-10">{description}</p>
+    <div className="group relative w-full h-full max-w-lg mx-auto">
+      {/* Main Card */}
+      <div className="relative h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-white/20 overflow-hidden shadow-2xl shadow-black/20 transition-all duration-700 hover:shadow-purple-500/20 hover:border-purple-500/30 hover:scale-[1.02] hover:-translate-y-2">
         
-        <div className="flex gap-6">
-          {githubLink && (
+        {/* Animated Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        
+        {/* Image Container */}
+        <div className="relative h-64 md:h-80 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10" />
+          <Image
+            src={src}
+            alt={title}
+            fill
+            className="object-cover transition-all duration-700 group-hover:scale-110"
+          />
+          
+          {/* Floating Action Buttons */}
+          <div className="absolute top-4 right-4 z-20 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
             <a
               href={githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
+              className="p-2 bg-black/50 backdrop-blur-sm rounded-full border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300"
             >
-              <RxGithubLogo className="text-2xl" />
-              <span className="font-medium text-lg">GitHub</span>
+              <Github className="w-4 h-4 text-white" />
             </a>
-          )}
-          
-          {deployLink && (
             <a
               href={deployLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25"
+              className="p-2 bg-black/50 backdrop-blur-sm rounded-full border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300"
             >
-              <RxExternalLink className="text-2xl" />
-              <span className="font-medium text-lg">Live Demo</span>
+              <ExternalLink className="w-4 h-4 text-white" />
             </a>
-          )}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 md:p-8 space-y-4">
+          {/* Title */}
+          <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-cyan-400 transition-all duration-500">
+            {title}
+          </h3>
+
+          {/* Description */}
+          <p className="text-gray-300 text-sm md:text-base leading-relaxed line-clamp-4 group-hover:text-gray-200 transition-colors duration-300">
+            {description}
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
+            <a
+              href={deployLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 group/btn"
+            >
+              <span>Live Demo</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+            </a>
+            
+            <a
+              href={githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/30 text-white font-medium rounded-xl transition-all duration-300 hover:scale-105 group/btn"
+            >
+              <Github className="w-4 h-4" />
+              <span>Code</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Animated Border */}
+        <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 p-[1px] animate-pulse">
+            <div className="w-full h-full rounded-3xl bg-transparent" />
+          </div>
         </div>
       </div>
+
+      {/* Floating Elements */}
+      <div className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 delay-300 animate-pulse" />
+      <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 delay-500 animate-pulse" />
     </div>
   );
 };
